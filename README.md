@@ -21,10 +21,15 @@ print("Number of Iris-versicolor: {}".format(df[df.Species == 'Iris-versicolor']
 print("Number of Iris-virginica: {}".format(df[df.Species == 'Iris-virginica'].shape[0]))
 print(df.shape)
 ```
-output:
+Output:
+
 Number of Iris-setosa: 50
+
 Number of Iris-versicolor: 50
+
 Number of Iris-virginica: 50
+
+
 (150, 6)
 
 We can see we have 150 entries, with 6 variables (including ID #).  We therefor have 5 variables to help with classification.
