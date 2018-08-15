@@ -92,6 +92,24 @@ Boundries drawn using first 2 variables (Sepal Length, Sepal Width) of our 5 tot
 
 ![figure_1](https://user-images.githubusercontent.com/34739163/44144655-9e7784d6-a045-11e8-9713-6c9846f3f159.png)
 
-We can see visual confirmation that the Linear kernel function works best of all the SVM models.  When we use cross-validation
-with optimal C param of 0.2, we get perfect classification (1.0) of our small data set (150 samples).
+We can see visual confirmation that the Linear kernel function works best of all the SVM models.  
+
+
+### Finally we can check performance of our optimal model with cross validation
+```
+svc=SVC(kernel='linear',C=0.2) 
+scores = cross_val_score(svc, X, y, cv=50, scoring='accuracy')
+print(scores)
+print('Mean of optimal Linear kernel: ', scores.mean())
+```
+
+### Output:
+[1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
+ 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
+ 1. 1.]
+Mean of optimal Linear kernel:  1.0
+
+## It appears we do gain a marginal boost in accuracy with the optimal C.  Model converges on 1 more often than not.
+
+When we use cross-validation with optimal C param of 0.2, we get perfect classification (1.0) of our small data set (150 samples).
 It is clear SVM's can perform quite well with small sample sizes.
