@@ -21,7 +21,7 @@ print("Number of Iris-versicolor: {}".format(df[df.Species == 'Iris-versicolor']
 print("Number of Iris-virginica: {}".format(df[df.Species == 'Iris-virginica'].shape[0]))
 print(df.shape)
 ```
-Output:
+### Output:
 
 Number of Iris-setosa: 50
 
@@ -33,13 +33,53 @@ Number of Iris-virginica: 50
 (150, 6)
 
 We can see we have 150 entries, with 6 variables (including ID #).  We therefor have 5 variables to help with classification.
+Because we have 5 variables (multivariable) and are attempting linear regression with our SVM, we must use what is known as a "kernel trick", applying a kernel function to our model to allow for linear analysis on multidimensional data.
+
+
+### Check which kernel function works best for this data set (Linear, RBF, Polynomial)
+```
+svc=SVC(kernel='linear',C=0.1) # C hyperparam tells the SVM how much you want to avoid misclassifying each training example.
+scores = cross_val_score(svc, X, y, cv=35, scoring='accuracy')
+print('Mean accuracy of Linear kernel: ', scores.mean())
+
+svc=SVC(kernel='rbf',C=0.1) 
+scores = cross_val_score(svc, X, y, cv=35, scoring='accuracy')
+print('Mean accuracy of RBF kernel: ', scores.mean())
+
+svc=SVC(kernel='poly',C=0.1) 
+scores = cross_val_score(svc, X, y, cv=35, scoring='accuracy')
+print('Mean accuracy of Polynomial kernel: ', scores.mean())
+```
+### Output:
+
+Mean accuracy of Linear kernel:  0.9952380952380953
+
+Mean accuracy of RBF kernel:  0.9904761904761906
+
+Mean accuracy of Polynomial kernel:  0.9095238095238096
+
+Liner kernel wins!
+
+
+### We have a single hyperparameter that we can optimize, namely C.  Done with a for loop from .1 to 1.0(can be higher).
+```
+C_range=list(np.arange(0.1,1,0.1))
+acc_score=[]
+for c in C_range:
+    svc = SVC(kernel='linear', C=c)
+    scores = cross_val_score(svc, X, y, cv=35, scoring='accuracy')
+    acc_score.append(scores.mean())
+print('Accuracy for each C value (.1 -> 1:) ', acc_score) # It appears any number greater than C=.1 works best.
+```
+Now that we have optimal parameters, its time for some modeling:
+
 
 ### Split data into Testing and Training
 ```
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=1)
 ```
-# Test 4 variations of SVM models (linear, rbm, polynomial, linearSVC)
+### Test 4 variations of SVM models 
 ```
 models = (svm.SVC(kernel='linear', C=C),
           svm.LinearSVC(C=C),
@@ -49,4 +89,8 @@ models = (svm.SVC(kernel='linear', C=C),
 
 Here is the output when we graph all four versions of our SVM (we find linear works the best, with an accuracy rate >99%).
 
+![figure_1](https://user-images.githubusercontent.com/34739163/44144655-9e7784d6-a045-11e8-9713-6c9846f3f159.png)
 
+We can see visual confirmation that the Linear kernel function works best of all the SVM models.  When we use cross-validation
+with optimal C param of 0.2, we get perfect classification (1.0) of our small data set (150 samples).
+It is clear SVM's can perform quite well with small sample sizes.
