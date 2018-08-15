@@ -104,11 +104,12 @@ print('Mean of optimal Linear kernel: ', scores.mean())
 ```
 
 ### Output:
+```
 [1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
  1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
  1. 1.]
 Mean of optimal Linear kernel:  1.0
-
+```
 ## It appears we do gain a marginal boost in accuracy with the optimal C.  Model converges on 1 more often than not.
 
 When we use cross-validation with optimal C param of 0.2, we get perfect classification (1.0) of our small data set (150 samples).
