@@ -58,7 +58,7 @@ Mean accuracy of RBF kernel:  0.9904761904761906
 
 Mean accuracy of Polynomial kernel:  0.9095238095238096
 
-Liner kernel wins!
+Linear kernel wins!
 
 
 ### We have a single hyperparameter that we can optimize, namely C. 
