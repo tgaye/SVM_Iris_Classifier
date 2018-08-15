@@ -53,15 +53,13 @@ print('Mean accuracy of Polynomial kernel: ', scores.mean())
 ### Output:
 
 Mean accuracy of Linear kernel:  0.9952380952380953
-
 Mean accuracy of RBF kernel:  0.9904761904761906
-
 Mean accuracy of Polynomial kernel:  0.9095238095238096
 
 Liner kernel wins!
 
 
-### We have a single hyperparameter that we can optimize, namely C.  Done with a for loop from .1 to 1.0(can be higher).
+### We have a single hyperparameter that we can optimize, namely C. 
 ```
 C_range=list(np.arange(0.1,1,0.1))
 acc_score=[]
